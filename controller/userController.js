@@ -1,16 +1,17 @@
 const userService = require("../service/userService");
 const catchSync = require("../utils/catchSync");
 
-const getAll = catchSync(async () => {
+const getAll = catchSync(async (req, res) => {
   const users = await userService.getAllUsers();
 
   res.json({ data: users });
 });
 
-const add = catchSync(async (userObj) => {
-  const user = await userService.createNewUser(userObj);
+const add = catchSync(async (req, res) => {
+  console.log(req.body);
+  const user = await userService.createNewUser(req.body);
 
-  return user;
+  res.json({ data: user });
 });
 
 module.exports = {
