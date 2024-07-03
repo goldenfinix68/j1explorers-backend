@@ -1,4 +1,4 @@
-# express-sequelize-boilerplate
+# j1explorers-backend
 
 
 1. To install application, open the terminal and go into the given code's root directory and execute below command
@@ -6,7 +6,7 @@
 npm install
 ```
 
-2. Create a database with name ***`test`*** in MySQL
+2. Create a database with name ***`j1explorers`*** in MySQL
 
 3. Run migrate:up command to create tables
 ```
