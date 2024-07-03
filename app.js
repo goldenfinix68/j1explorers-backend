@@ -8,9 +8,7 @@ const rootRouter = require("./routes");
 const accessLog = require("./middleware/accessLog");
 
 app.use(bodyParser.json());
-app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", accessLog, rootRouter);
 
