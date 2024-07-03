@@ -1,8 +1,8 @@
 const db = require("../models");
 
-const createNewUser = (user) => db.User.create(user);
+const createNewUser = (user) => db.user.create(user);
 
-const getAllUsers = () => db.User.findAll({ where: { deletedAt: null } });
+const getAllUsers = () => db.user.findAll({ where: { deletedAt: null } });
 
 module.exports = {
   createNewUser,

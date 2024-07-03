@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -22,15 +23,26 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
       },
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "user",
       paranoid: true,
       timestamps: true,
     }
   );
+
+  User.beforeSave(async (user) => {
+    const id = uuidv4();
+    user.set({ id });
+    console.log(user);
+    return user;
+  });
 
   return User;
 };
