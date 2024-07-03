@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const config = require("./config");
+const cors = require("cors");
 const app = express();
 
 const rootRouter = require("./routes");
 
 const accessLog = require("./middleware/accessLog");
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
