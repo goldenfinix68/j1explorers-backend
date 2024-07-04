@@ -1,6 +1,6 @@
 const faqService = require("../service/faqService");
 const catchSync = require("../utils/catchSync");
-const picker = require("../utils/picker");
+const pick = require("../utils/pick");
 
 const getFaqsByCategory = catchSync(async (req, res) => {
   const faqs = await faqService.getFaqsByCategory(req.query.category);
@@ -11,7 +11,7 @@ const getFaqsByCategory = catchSync(async (req, res) => {
 const getFaqById = catchSync(async (req, res) => {
   const faq = await faqService.getFaqById(req.query.id);
 
-  res.json({ ...picker(faq, ["id", "question", "answer"]) });
+  res.json({ ...pick(faq, ["id", "question", "answer"]) });
 });
 
 module.exports = {
