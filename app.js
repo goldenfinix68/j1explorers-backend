@@ -6,7 +6,7 @@ const app = express();
 
 const rootRouter = require("./routes");
 
-const accessLog = require("./middleware/accessLog");
+const { accessLog } = require("./middleware");
 
 app.use(cors());
 app.use(bodyParser.json());
