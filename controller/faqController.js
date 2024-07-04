@@ -10,7 +10,7 @@ const getFaqsByCategory = catchSync(async (req, res) => {
 
 const getFaqById = catchSync(async (req, res) => {
   const faq = await faqService.getFaqById(req.query.id);
-
+  console.log(faq);
   res.json({ ...pick(faq, ["id", "question", "answer"]) });
 });
 
