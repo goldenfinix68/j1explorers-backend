@@ -19,6 +19,37 @@ module.exports = {
           isEmail: true,
         },
       },
+      gender: {
+        type: Sequelize.STRING,
+      },
+      birthdate: {
+        type: Sequelize.DATE,
+      },
+      phone: {
+        type: Sequelize.STRING,
+      },
+      whatsapp: {
+        type: Sequelize.STRING,
+      },
+      employer: {
+        type: Sequelize.STRING,
+      },
+      passport_country: {
+        type: Sequelize.STRING,
+      },
+      birthcity: {
+        type: Sequelize.STRING,
+      },
+      passport_number: {
+        type: Sequelize.STRING,
+      },
+      expiration_date: {
+        type: Sequelize.DATE,
+      },
+      password: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

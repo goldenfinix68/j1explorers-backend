@@ -1,6 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
+const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -11,6 +12,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+    }
+
+    async comparePassword(plainPassword) {
+      return bcrypt.compare(plainPassword, this.password);
+    }
+
+    static async encryptPassword(plainPassword) {
+      const salt = await bcrypt.genSalt(10);
+
+      return bcrypt.hash(plainPassword, salt);
     }
   }
 
@@ -28,6 +39,37 @@ module.exports = (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
+      gender: {
+        type: DataTypes.STRING,
+      },
+      birthdate: {
+        type: DataTypes.DATE,
+      },
+      phone: {
+        type: DataTypes.STRING,
+      },
+      whatsapp: {
+        type: DataTypes.STRING,
+      },
+      employer: {
+        type: DataTypes.STRING,
+      },
+      passport_country: {
+        type: DataTypes.STRING,
+      },
+      birthcity: {
+        type: DataTypes.STRING,
+      },
+      passport_number: {
+        type: DataTypes.STRING,
+      },
+      expiration_date: {
+        type: DataTypes.DATE,
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
     },
     {
       sequelize,
@@ -37,10 +79,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  User.beforeSave(async (user) => {
+  User.beforeCreate(async (user) => {
     const id = uuidv4();
-    user.set({ id });
-    console.log(user);
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(user.password, salt);
+
+    user.set({ id, password, salt });
     return user;
   });
 
