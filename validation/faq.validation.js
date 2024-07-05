@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const getFaqsByCategory = {
   query: Joi.object().keys({
-    category: Joi.number().required(),
+    category: Joi.number().integer().min(1).required(),
   }),
 };
 
