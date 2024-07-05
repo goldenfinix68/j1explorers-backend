@@ -1,10 +1,19 @@
 const db = require("../models");
 
-const createNewUser = (user) => db.user.create(user);
+const createNewUser = (user) => db.user.create({ ...user, salt: "" });
 
 const getAllUsers = () => db.user.findAll({ where: { deletedAt: null } });
+
+const getUserById = (id) => db.user.findByPk({ where: { id } });
+
+const getUserByEmail = (email) => db.user.findOne({ where: { email } });
+
+const updateUserById = (user, id) => db.user.update(user, { where: { id } });
 
 module.exports = {
   createNewUser,
   getAllUsers,
+  getUserById,
+  getUserByEmail,
+  updateUserById,
 };
