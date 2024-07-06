@@ -10,6 +10,6 @@ router.get(
   faqController.getFaqsByCategory
 );
 
-router.get("/fetchFaqById", faqController.getFaqById);
+router.get("/fetchFaq", faqController.getFaqById);
 
 module.exports = router;
