@@ -6,6 +6,13 @@ const getAllCategories = () =>
     where: { deletedAt: null },
   });
 
+const getCategoryById = (id) =>
+  db.category.findOne({
+    attributes: ["id", "title"],
+    where: { deletedAt: null, id: Number(id) },
+  });
+
 module.exports = {
   getAllCategories,
+  getCategoryById,
 };

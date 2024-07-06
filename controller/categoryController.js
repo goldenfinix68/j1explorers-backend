@@ -7,6 +7,13 @@ const getAll = catchSync(async (req, res) => {
   res.json({ categories });
 });
 
+const getCategoryById = catchSync(async (req, res) => {
+  const category = await categoryService.getCategoryById(req.query.id);
+
+  res.json({ ...category.dataValues });
+});
+
 module.exports = {
   getAll,
+  getCategoryById,
 };
