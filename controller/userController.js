@@ -5,6 +5,7 @@ const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
 const bcrypt = require("bcrypt");
 const db = require("../models");
+const { userAttributes } = require("../consts");
 
 const getAll = catchSync(async (req, res) => {
   const users = await userService.getAllUsers();
@@ -21,7 +22,14 @@ const registerUser = catchSync(async (req, res) => {
 const loginUser = catchSync(async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = await userService.getUserByEmail(email);
+  const user = await userService.getUserByEmail(
+    email,
+    userAttributes.userPrivacy
+  );
+
+  if (!user) {
+    return next(new ApiError(httpStatus.NOT_FOUND, "Invalid email"));
+  }
 
   const passwordMatch = await user.comparePassword(password);
 

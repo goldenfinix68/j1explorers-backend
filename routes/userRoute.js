@@ -3,6 +3,8 @@ const router = express.Router();
 const userController = require("../controller/userController");
 const { validate, authenticate } = require("../middleware");
 const { userValidation } = require("../validation");
+const pick = require("../utils/pick");
+const { userAttributes } = require("../consts");
 
 router.get("/fetchUsers", userController.getAll);
 
@@ -19,7 +21,12 @@ router.post(
 );
 
 router.get("/me", authenticate, (req, res) => {
-  res.json({ ...req.user });
+  const user = pick(req.user, [
+    ...userAttributes.userEssential,
+    ...userAttributes.userDetail,
+  ]);
+
+  res.json({ ...user });
 });
 
 router.put(
