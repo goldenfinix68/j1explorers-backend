@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasOne(models.tour, { as: "tour1", foreignKey: "userId1" });
+      User.hasOne(models.tour, { as: "tour2", foreignKey: "userId2" });
+      User.hasOne(models.tour, { as: "tour3", foreignKey: "userId3" });
+      User.hasOne(models.tour, { as: "tour4", foreignKey: "userId4" });
     }
 
     async comparePassword(plainPassword) {
@@ -24,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.hash(plainPassword, salt);
     }
   }
-
   User.init(
     {
       fullname: {
