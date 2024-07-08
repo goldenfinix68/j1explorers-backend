@@ -15,6 +15,12 @@ router.get(
 
 router.get("/fetchTourByUserId", authenticate, tourController.getTourByUserId);
 
+router.get(
+  "/fetchTourWithSchedules",
+  authenticate,
+  tourController.getTourWithSchedulesByUserId
+);
+
 router.put(
   "/update",
   authenticate,

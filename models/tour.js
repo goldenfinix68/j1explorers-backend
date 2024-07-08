@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       tour.belongsTo(models.user, { as: "user2", foreignKey: "userId2" });
       tour.belongsTo(models.user, { as: "user3", foreignKey: "userId3" });
       tour.belongsTo(models.user, { as: "user4", foreignKey: "userId4" });
+
+      tour.hasMany(models.schedule, { foreignKey: "tourId", as: "schedules" });
     }
   }
   tour.init(

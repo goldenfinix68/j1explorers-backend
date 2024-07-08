@@ -44,10 +44,21 @@ const getTourByUserId = catchSync(async (req, res) => {
   res.json({ ...tour.dataValues });
 });
 
+const getTourWithSchedulesByUserId = catchSync(async (req, res) => {
+  const tour = await tourService.getTourByUserId(
+    req.user.id,
+    tourAttributes.tourDetail,
+    [{ model: db.schedule, as: "schedules", attributes: [...scheduleDetail] }]
+  );
+
+  res.json({ ...tour.dataValues });
+});
+
 module.exports = {
   getAll,
   addNewTour,
   updateTour,
   getPackMembersByUserId,
   getTourByUserId,
+  getTourWithSchedulesByUserId,
 };
