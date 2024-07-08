@@ -1,4 +1,7 @@
 "use strict";
+
+const schedule = require("../models/schedule");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("schedules", {
@@ -27,6 +30,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       image: {
+        type: Sequelize.STRING,
+        defaultValue: "",
+      },
+      time: {
         type: Sequelize.STRING,
         defaultValue: "",
       },

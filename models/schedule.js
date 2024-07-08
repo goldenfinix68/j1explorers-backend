@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       content: DataTypes.STRING,
       type: DataTypes.STRING,
       day: DataTypes.INTEGER,
+      time: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
       image: {
         type: DataTypes.STRING,
         defaultValue: "",

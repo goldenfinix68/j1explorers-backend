@@ -7,6 +7,7 @@ const scheduleDetail = [
   "type",
   "day",
   "image",
+  "time",
 ];
 
 module.exports = {
