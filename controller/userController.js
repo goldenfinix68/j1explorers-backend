@@ -20,12 +20,12 @@ const registerUser = catchSync(async (req, res) => {
 });
 
 const loginUser = catchSync(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  const user = await userService.getUserByEmail(
-    email,
-    userAttributes.userPrivacy
-  );
+  const user = await userService.getUserByUsername(username, [
+    ...userAttributes.userEssential,
+    ...userAttributes.userPrivacy,
+  ]);
 
   if (!user) {
     return next(new ApiError(httpStatus.NOT_FOUND, "Invalid email"));
@@ -37,7 +37,7 @@ const loginUser = catchSync(async (req, res, next) => {
     return next(new ApiError(httpStatus.BAD_REQUEST, "Invalid password"));
   }
 
-  const token = authService.generateToken(email);
+  const token = authService.generateToken(user.email);
 
   res.json({ token });
 });
@@ -47,7 +47,7 @@ const updateUser = catchSync(async (req, res) => {
 
   await userService.updateUserById(user, req.user.id);
 
-  res.json({ success: "ok" });
+  res.json({ result: "success" });
 });
 
 const changePassword = catchSync(async (req, res, next) => {
@@ -66,7 +66,7 @@ const changePassword = catchSync(async (req, res, next) => {
 
   await userService.updateUserById({ password: hashedPassword }, user.id);
 
-  res.json({ success: "ok" });
+  res.json({ result: "success" });
 });
 
 module.exports = {

@@ -1,6 +1,6 @@
 const db = require("../models");
 
-const userEssential = ["id", "fullname", "email"];
+const userEssential = ["id", "username", "fullname", "email"];
 const userDetail = [
   "gender",
   "birthdate",

@@ -13,6 +13,13 @@ const getUserByEmail = (email, attributes = [], include = []) =>
     include,
   });
 
+const getUserByUsername = (username, attributes = [], include = []) =>
+  db.user.findOne({
+    attributes,
+    where: { username },
+    include,
+  });
+
 const updateUserById = (user, id) => db.user.update(user, { where: { id } });
 
 module.exports = {
@@ -21,4 +28,5 @@ module.exports = {
   getUserById,
   getUserByEmail,
   updateUserById,
+  getUserByUsername,
 };
