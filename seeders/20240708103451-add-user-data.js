@@ -11,6 +11,7 @@ module.exports = {
     const userData = [
       {
         id: userId,
+        username: "admin",
         email: "admin@outlook.com",
         fullname: "John Sanderson",
         password,
