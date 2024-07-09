@@ -153,6 +153,7 @@ module.exports = {
         from: 1,
         to: 2,
         day: 5,
+        time: "11:05am",
         type: "flight",
         title: "Flight LV to NYC",
         content: "",
