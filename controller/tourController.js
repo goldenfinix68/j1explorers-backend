@@ -49,10 +49,17 @@ const getTourWithSchedulesByUserId = catchSync(async (req, res) => {
   const tour = await tourService.getTourByUserId(
     req.user.id,
     tourAttributes.tourDetail,
-    [{ model: db.schedule, as: "schedules", attributes: [...scheduleDetail] }]
+    [
+      {
+        model: db.schedule,
+        as: "schedules",
+        attributes: [...scheduleDetail],
+        where: { day: Number(req.query.day) },
+      },
+    ]
   );
 
-  res.json({ ...tour.dataValues });
+  res.json(tour.dataValues.schedules);
 });
 
 module.exports = {
