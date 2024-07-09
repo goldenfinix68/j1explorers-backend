@@ -1,7 +1,4 @@
 "use strict";
-
-const schedule = require("../models/schedule");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("schedules", {
