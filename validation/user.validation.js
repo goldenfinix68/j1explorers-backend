@@ -27,6 +27,7 @@ const loginUser = {
 
 const updateUser = {
   body: Joi.object().keys({
+    username: Joi.string(),
     fullname: Joi.string(),
     email: Joi.string().email(),
     gender: Joi.string().allow(null),

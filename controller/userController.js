@@ -6,6 +6,7 @@ const httpStatus = require("http-status");
 const bcrypt = require("bcrypt");
 const db = require("../models");
 const { userAttributes } = require("../consts");
+const pick = require("../utils/pick");
 
 const getAll = catchSync(async (req, res) => {
   const users = await userService.getAllUsers();
@@ -24,6 +25,7 @@ const loginUser = catchSync(async (req, res, next) => {
 
   const user = await userService.getUserByUsername(username, [
     ...userAttributes.userEssential,
+    ...userAttributes.userDetail,
     ...userAttributes.userPrivacy,
   ]);
 
@@ -39,20 +41,36 @@ const loginUser = catchSync(async (req, res, next) => {
 
   const token = authService.generateToken(user.email);
 
-  res.json({ token });
+  res.json({
+    token,
+    user: pick(user.dataValues, [
+      ...userAttributes.userEssential,
+      ...userAttributes.userDetail,
+    ]),
+  });
 });
 
 const updateUser = catchSync(async (req, res) => {
   const user = req.body;
 
-  await userService.updateUserById(user, req.user.id);
+  const updatedUser = await userService.getUserById(req.user.id, [
+    ...userAttributes.userEssential,
+    ...userAttributes.userDetail,
+  ]);
 
-  res.json({ result: "success" });
+  updatedUser.set({ ...user });
+  await updatedUser.save();
+
+  res.json(updatedUser);
 });
 
 const changePassword = catchSync(async (req, res, next) => {
   const { old_password, new_password } = req.body;
-  const user = req.user;
+
+  const user = await userService.getUserByUsername(req.user.username, [
+    ...userAttributes.userEssential,
+    ...userAttributes.userPrivacy,
+  ]);
 
   const passwordMatch = await bcrypt.compare(old_password, user.password);
 
@@ -64,7 +82,8 @@ const changePassword = catchSync(async (req, res, next) => {
 
   const hashedPassword = await db.user.encryptPassword(new_password);
 
-  await userService.updateUserById({ password: hashedPassword }, user.id);
+  user.set({ password: hashedPassword });
+  await user.save();
 
   res.json({ result: "success" });
 });
