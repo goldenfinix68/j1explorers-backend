@@ -49,9 +49,23 @@ const changePassword = {
   }),
 };
 
+const loginByFingerprint = {
+  body: Joi.object().keys({
+    fingerprint: Joi.string().required().min(1),
+  }),
+};
+
+const updateFingerprint = {
+  body: Joi.object().keys({
+    fingerprint: Joi.string().required().min(1),
+  }),
+};
+
 module.exports = {
   createNewUser,
   loginUser,
   updateUser,
   changePassword,
+  loginByFingerprint,
+  updateFingerprint,
 };
