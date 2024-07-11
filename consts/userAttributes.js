@@ -1,6 +1,7 @@
 const db = require("../models");
 
 const userEssential = ["id", "username", "fullname", "email"];
+
 const userDetail = [
   "gender",
   "birthdate",
@@ -12,7 +13,9 @@ const userDetail = [
   "passport_number",
   "expiration_date",
 ];
-const userPrivacy = ["password"];
+
+const userPrivacy = ["password", "password"];
+
 const tours = [
   {
     model: db.tour,

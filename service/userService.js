@@ -23,6 +23,9 @@ const getUserByUsername = (username, attributes = [], include = []) =>
 
 const updateUserById = (user, id) => db.user.update(user, { where: { id } });
 
+const getUserByFingerprint = (fingerprint, attributes = [], include = []) =>
+  db.user.findOne({ attributes, where: { fingerprint }, include });
+
 module.exports = {
   createNewUser,
   getAllUsers,
@@ -30,4 +33,5 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   getUserByUsername,
+  getUserByFingerprint,
 };
