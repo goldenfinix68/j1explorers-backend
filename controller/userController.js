@@ -64,6 +64,41 @@ const updateUser = catchSync(async (req, res) => {
   res.json(updatedUser);
 });
 
+const loginByFingerprint = catchSync(async (req, res) => {
+  const user = await userService.getUserByFingerprint(req.body.fingerprint, [
+    ...userAttributes.userEssential,
+    ...userAttributes.userDetail,
+  ]);
+
+  if (!user) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "Such fingerprint does not exist!"
+    );
+  }
+
+  const token = authService.generateToken(user.email);
+
+  res.json({
+    token,
+    user,
+  });
+});
+
+const updateFingerprint = catchSync(async (req, res) => {
+  const user = req.body;
+
+  const updatedUser = await userService.getUserById(req.user.id, [
+    ...userAttributes.userEssential,
+    ...userAttributes.userPrivacy,
+  ]);
+
+  updatedUser.set({ ...user });
+  await updatedUser.save();
+
+  res.json({ result: "success" });
+});
+
 const changePassword = catchSync(async (req, res, next) => {
   const { old_password, new_password } = req.body;
 
@@ -92,6 +127,8 @@ module.exports = {
   getAll,
   registerUser,
   loginUser,
+  loginByFingerprint,
   updateUser,
   changePassword,
+  updateFingerprint,
 };

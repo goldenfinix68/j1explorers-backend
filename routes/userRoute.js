@@ -20,6 +20,19 @@ router.post(
   userController.loginUser
 );
 
+router.post(
+  "/fingerprint/login",
+  validate(userValidation.loginByFingerprint),
+  userController.loginByFingerprint
+);
+
+router.put(
+  "/fingerprint/update",
+  authenticate,
+  validate(userValidation.updateFingerprint),
+  userController.updateFingerprint
+);
+
 router.get("/me", authenticate, (req, res) => {
   const user = pick(req.user, [
     ...userAttributes.userEssential,
