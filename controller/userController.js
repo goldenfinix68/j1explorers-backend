@@ -7,6 +7,7 @@ const bcrypt = require("bcrypt");
 const db = require("../models");
 const { userAttributes } = require("../consts");
 const pick = require("../utils/pick");
+const { userPrivacy } = require("../consts/userAttributes");
 
 const getAll = catchSync(async (req, res) => {
   const users = await userService.getAllUsers();
@@ -85,6 +86,12 @@ const loginByFingerprint = catchSync(async (req, res) => {
   });
 });
 
+const checkFingerprint = catchSync(async (req, res) => {
+  const user = await userService.getUserById(req.user.id, [...userPrivacy]);
+  console.log(user);
+  res.json({ result: user.fingerprint ? "yes" : "no" });
+});
+
 const updateFingerprint = catchSync(async (req, res) => {
   const user = req.body;
 
@@ -131,4 +138,5 @@ module.exports = {
   updateUser,
   changePassword,
   updateFingerprint,
+  checkFingerprint,
 };
