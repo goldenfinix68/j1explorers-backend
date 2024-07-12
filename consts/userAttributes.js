@@ -14,7 +14,7 @@ const userDetail = [
   "expiration_date",
 ];
 
-const userPrivacy = ["password", "password"];
+const userPrivacy = ["password", "fingerprint"];
 
 const tours = [
   {
