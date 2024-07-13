@@ -29,7 +29,7 @@ router.post(
 router.get("/fingerprint", authenticate, userController.checkFingerprint);
 
 router.put(
-  "/fingerprint/update",
+  "/me/fingerprint/update",
   authenticate,
   validate(userValidation.updateFingerprint),
   userController.updateFingerprint
