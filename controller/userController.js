@@ -88,7 +88,7 @@ const loginByFingerprint = catchSync(async (req, res) => {
 
 const checkFingerprint = catchSync(async (req, res) => {
   const user = await userService.getUserById(req.user.id, [...userPrivacy]);
-  console.log(user);
+
   res.json({ result: user.fingerprint ? "yes" : "no" });
 });
 
