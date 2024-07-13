@@ -57,7 +57,7 @@ const loginByFingerprint = {
 
 const updateFingerprint = {
   body: Joi.object().keys({
-    fingerprint: Joi.string().required().min(1),
+    fingerprint: Joi.string().required().allow(null),
   }),
 };
 
