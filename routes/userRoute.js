@@ -26,7 +26,7 @@ router.post(
   userController.loginByFingerprint
 );
 
-router.get("/fingerprint", authenticate, userController.checkFingerprint);
+router.get("/me/fingerprint", authenticate, userController.checkFingerprint);
 
 router.put(
   "/me/fingerprint/update",
