@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const faqController = require("../controller/faqController");
-const { validate } = require("../middleware");
+const { validate, authenticate } = require("../middleware");
 const { faqValidation } = require("../validation");
 
 router.get(
   "/fetchFaqsByCategory",
+  authenticate,
   validate(faqValidation.getFaqsByCategory),
   faqController.getFaqsByCategory
 );
