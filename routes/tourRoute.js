@@ -4,7 +4,7 @@ const tourController = require("../controller/tourController");
 const { validate, authenticate } = require("../middleware");
 const { tourValidation } = require("../validation");
 
-router.get("/fetchTours", tourController.getAll);
+router.get("/fetchTours", authenticate, tourController.getAll);
 
 router.get(
   "/fetchPackMembers",
