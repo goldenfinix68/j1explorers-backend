@@ -1,4 +1,4 @@
 module.exports = {
-  PORT: 3000,
+  PORT: 5000,
   JWT_SECRET: "secret",
 };
