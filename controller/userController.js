@@ -25,8 +25,6 @@ const loginUser = catchSync(async (req, res, next) => {
   const { username, password } = req.body;
 
   const user = await userService.getUserByUsername(username, [
-    ...userAttributes.userEssential,
-    ...userAttributes.userDetail,
     ...userAttributes.userPrivacy,
   ]);
 
@@ -44,10 +42,6 @@ const loginUser = catchSync(async (req, res, next) => {
 
   res.json({
     token,
-    user: pick(user.dataValues, [
-      ...userAttributes.userEssential,
-      ...userAttributes.userDetail,
-    ]),
   });
 });
 
@@ -62,13 +56,12 @@ const updateUser = catchSync(async (req, res) => {
   updatedUser.set({ ...user });
   await updatedUser.save();
 
-  res.json(updatedUser);
+  res.json({ result: "success" });
 });
 
 const loginByFingerprint = catchSync(async (req, res) => {
   const user = await userService.getUserByFingerprint(req.body.fingerprint, [
     ...userAttributes.userEssential,
-    ...userAttributes.userDetail,
   ]);
 
   if (!user) {
@@ -82,7 +75,6 @@ const loginByFingerprint = catchSync(async (req, res) => {
 
   res.json({
     token,
-    user,
   });
 });
 
