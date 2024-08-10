@@ -6,10 +6,11 @@ const { userValidation } = require("../validation");
 const pick = require("../utils/pick");
 const { userAttributes } = require("../consts");
 
-router.get("/fetchUsers", userController.getAll);
+router.get("/fetchUsers", authenticate, userController.getAll);
 
 router.post(
   "/new",
+  authenticate,
   validate(userValidation.createNewUser),
   userController.registerUser
 );
