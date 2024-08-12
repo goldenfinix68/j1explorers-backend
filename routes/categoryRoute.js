@@ -4,7 +4,7 @@ const categoryController = require("../controller/categoryController");
 const { validate, authenticate } = require("../middleware");
 const { categoryValidation } = require("../validation");
 
-router.get("/fetchCategories", categoryController.getAll);
+router.get("/fetchCategories", authenticate, categoryController.getAll);
 
 router.get(
   "/fetchCategory",
